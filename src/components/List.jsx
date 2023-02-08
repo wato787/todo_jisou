@@ -9,6 +9,9 @@ export const List = (props) => {
     radio,
     setRadio,
     todos,
+    // // setTodoEditing,
+    // todoEditing,
+    handleEdit,
   } = props;
 
   return (
@@ -61,6 +64,8 @@ export const List = (props) => {
                   完了
                 </button>
 
+
+
                 <form>
                   <label>
                     <input
@@ -69,13 +74,25 @@ export const List = (props) => {
                       style={{ padding: "5px" }}
                       onClick={() => toggle(todo.id)}
                     ></input>
-                    完了
                   </label>
                 </form>
                 {/* 完了にチェック入れた時文字色変えるためのクラス付与 */}
                 <li className={todo.status === "completed" ? "completed" : ""}>
-                  {todo.text}
+                    <input type="text" value={todo.text}onChange={(e) => handleEdit(todo.id, e.target.value)}/>
+
                 </li>
+                {/* 編集 */}
+                {/* {todo.id === todoEditing ? (
+                  <button onClick={() => todos(todo.id)}>
+                    再投稿
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleEdit(todo.id)}
+                  >
+                    編集
+                  </button>
+                )} */}
                 <button className="delete" onClick={() => onClickDelete(index)}>
                   削除
                 </button>

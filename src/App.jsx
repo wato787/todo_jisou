@@ -8,6 +8,8 @@ export const App = () => {
   const [todoText, setTodoText] = useState("");
   const [listTodo, setListTodo] = useState([]);
   const [radio, setRadio] = useState("all");
+  const [todoEditing, setTodoEditing] = useState(null);
+
 
   // 入力値をtodoTextに反映
   const handleChange = (e) => setTodoText(e.target.value);
@@ -46,7 +48,7 @@ export const App = () => {
   // ステータス変更
   const toggle = (todoID) => {
     setListTodo(
-      listTodo.map((todo) =>
+      listTodo.map((todo,i) =>
         todoID === todo.id
           ? {
               ...todo,
@@ -68,6 +70,19 @@ export const App = () => {
     return listTodo;
   };
 
+  // 編集
+  const handleEdit = (id, value) => {
+    const newTodos = listTodo.map((todo) => {
+      if (todo.id === id) {
+        todo.value = value;
+      }
+      return todo;
+    });
+
+    // todos ステートを更新
+    setTodoText(newTodos);
+  };
+
   return (
     <>
       <Header />
@@ -81,6 +96,9 @@ export const App = () => {
         switchTodos={switchTodos}
         radio={radio}
         setRadio={setRadio}
+        setTodoEditing={setTodoEditing}
+        todoEditing={todoEditing}
+        handleEdit={handleEdit}
       />
     </>
   );
