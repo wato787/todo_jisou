@@ -1,18 +1,29 @@
 import React from "react";
 
 export const List = (props) => {
+
   const {
     onClickComplete,
     onClickDelete,
     toggle,
-    switchTodos,
     radio,
     setRadio,
     todos,
-    // // setTodoEditing,
-    // todoEditing,
+  // handlechange,
     handleEdit,
   } = props;
+
+  const switchTodos = () => {
+    if (radio === "completed") {
+      return todos.filter((todo) => todo.status === "completed");
+    }
+    if (radio === "incomplete") {
+      return todos.filter((todo) => todo.status === "incomplete");
+    }
+    return todos;
+  };
+
+  const switched=switchTodos();
 
   return (
     <>
@@ -52,12 +63,7 @@ export const List = (props) => {
 
         {/* チェックボックス */}
         <ul>
-          {/*
-            switchTodosを呼び出した結果を変数にいれたいですかね、
-            例）const switchedTodos = switchTodos()
-            switchedTodos.map((todo, indedx) => ......)
-          */}
-          {switchTodos().map((todo, index) => {
+          {switched.map((todo, index) => {
             return (
               <div key={todo.id} className="list-row">
                 <button
@@ -68,7 +74,6 @@ export const List = (props) => {
                 >
                   完了
                 </button>
-
                 <form>
                   <label>
                     <input
