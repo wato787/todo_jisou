@@ -10,12 +10,12 @@ export const App = () => {
   const [radio, setRadio] = useState("all");
   const [todoEditing, setTodoEditing] = useState(null);
 
-
   // 入力値をtodoTextに反映
   const handleChange = (e) => setTodoText(e.target.value);
 
   // ボタン押したら追加　ステータスとidもふる
-  const clickAdd = () => {
+  const clickAdd = (e) => {
+    e.preventDefault();
     if (todoText === "") return;
 
     const todo = {
@@ -47,8 +47,9 @@ export const App = () => {
 
   // ステータス変更
   const toggle = (todoID) => {
+    console.log("called");
     setListTodo(
-      listTodo.map((todo,i) =>
+      listTodo.map((todo, i) =>
         todoID === todo.id
           ? {
               ...todo,
@@ -57,8 +58,13 @@ export const App = () => {
           : todo
       )
     );
+    console.log(listTodo);
   };
 
+  // ↓このフィルターapp.jsxで使わないですよね？
+  // であれば渡しているList.jsx内で定義した方がわかりやすいかもしれません。
+  // app.jsxでも使う、List.jsxでも使うみたいな場合はここで記述してpropsに渡すでよいと思います！
+  // 他の関数も同様に、使うコンポーネントの中で定義してよいと思います。
   // フィルター
   const switchTodos = () => {
     if (radio === "completed") {
@@ -86,7 +92,13 @@ export const App = () => {
   return (
     <>
       <Header />
-      <Input todoText={todoText} onChange={handleChange} onClick={clickAdd} />
+      <Input
+        todoText={todoText}
+        onChange={handleChange}
+        onClick={clickAdd}
+        // enter押した際に追加されるようにするにはonSubmitが必要ですね！
+        onSubmit={clickAdd}
+      />
 
       <List
         toggle={toggle}
