@@ -14,7 +14,7 @@ export const App = () => {
   // 入力値をtodoTextに反映
   const handleChange = (e) => setTodoText(e.target.value);
 
-  // ボタン押したら追加　ステータスとidもふる
+  // ボタン押したら追加 ステータスとidもふる
   const clickAdd = () => {
     if (todoText === "") return;
 
