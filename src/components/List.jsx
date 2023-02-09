@@ -52,6 +52,11 @@ export const List = (props) => {
 
         {/* チェックボックス */}
         <ul>
+          {/*
+            switchTodosを呼び出した結果を変数にいれたいですかね、
+            例）const switchedTodos = switchTodos()
+            switchedTodos.map((todo, indedx) => ......)
+          */}
           {switchTodos().map((todo, index) => {
             return (
               <div key={todo.id} className="list-row">
@@ -64,8 +69,6 @@ export const List = (props) => {
                   完了
                 </button>
 
-
-
                 <form>
                   <label>
                     <input
@@ -73,13 +76,19 @@ export const List = (props) => {
                       value={todo.status === "incomplete" ? "作業中" : "完了"}
                       style={{ padding: "5px" }}
                       onClick={() => toggle(todo.id)}
+                      // todoのチェックが反転してしまう問題についてですが、consoleでtodoの状態を確認したところtodo側の問題ではなさそうでした！
+                      // おそらくチェックボックスがレンダリングされる際にデフォルトでチェックを外した状態でレンダリングされるため、結果反転しているように見えるのだと思います。
+                      // レンダリングされる際にtodoの状態を見て完了であればチェックがつくように追加してあげれば解決できそうです！！
                     ></input>
                   </label>
                 </form>
                 {/* 完了にチェック入れた時文字色変えるためのクラス付与 */}
                 <li className={todo.status === "completed" ? "completed" : ""}>
-                    <input type="text" value={todo.text}onChange={(e) => handleEdit(todo.id, e.target.value)}/>
-
+                  <input
+                    type="text"
+                    value={todo.text}
+                    onChange={(e) => handleEdit(todo.id, e.target.value)}
+                  />
                 </li>
                 {/* 編集 */}
                 {/* {todo.id === todoEditing ? (
