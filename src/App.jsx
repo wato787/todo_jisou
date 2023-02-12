@@ -47,7 +47,6 @@ export const App = () => {
 
     // ステータス変更
     const toggle = (todoID) => {
-      console.log("called");
       setListTodo(
         listTodo.map((todo, i) =>
           todoID === todo.id
@@ -59,21 +58,15 @@ export const App = () => {
             : todo
         )
       );
-      console.log(listTodo);
     };
 
     // 編集
-    const handleEdit = (id, value) => {
-      const newTodos = listTodo.map((todo) => {
-        if (todo.id === id) {
-          todo.value = value;
-        }
-        return todo;
-      });
+    const handleEdit = () => {
+
+      };
 
       // todos ステートを更新
-      setTodoText(newTodos);
-    };
+      // setTodoText(newTodos);
 
     return (
       <>
@@ -84,6 +77,7 @@ export const App = () => {
           onClick={clickAdd}
           // enter押した際に追加されるようにするにはonSubmitが必要ですね！
           onSubmit={clickAdd}
+          disable={listTodo.length >= 10}
         />
 
         <List
@@ -96,6 +90,7 @@ export const App = () => {
           setTodoEditing={setTodoEditing}
           todoEditing={todoEditing}
           handleEdit={handleEdit}
+          onChange={handleChange}
           // handleChange={handleChange}
         />
       </>

@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Input = (props) => {
-  const { todoText, disabled, onClick, onChange } = props;
+  const { todoText, disable, onClick, onChange } = props;
   return (
     <>
       {/* ↓親で渡したonSubmitを設定するためにdivタグからformタグに直してonSubmitを設定してあげると想定通りのコードになりそうです。 */}
@@ -12,12 +12,12 @@ export const Input = (props) => {
           placeholder="ToDoを入力"
           value={todoText}
           onChange={onChange}
-          disabled={disabled}
+          disabled={disable}
         />
         <button
           type="input"
           className="input_btn"
-          disabled={disabled}
+          disabled={disable}
           onClick={onClick}
         >
           追加

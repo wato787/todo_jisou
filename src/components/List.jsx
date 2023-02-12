@@ -1,4 +1,5 @@
 import React from "react";
+// import { useState } from "react";
 
 export const List = (props) => {
 
@@ -9,9 +10,10 @@ export const List = (props) => {
     radio,
     setRadio,
     todos,
-  // handlechange,
     handleEdit,
   } = props;
+
+
 
   const switchTodos = () => {
     if (radio === "completed") {
@@ -24,6 +26,12 @@ export const List = (props) => {
   };
 
   const switched=switchTodos();
+
+  // const [check,setCheck]=useState(0);
+  // const checks =()=>{
+
+  // };
+
 
   return (
     <>
@@ -81,7 +89,8 @@ export const List = (props) => {
                       value={todo.status === "incomplete" ? "作業中" : "完了"}
                       style={{ padding: "5px" }}
                       onClick={() => toggle(todo.id)}
-                      // todoのチェックが反転してしまう問題についてですが、consoleでtodoの状態を確認したところtodo側の問題ではなさそうでした！
+                      onChange={handleEdit}
+                      checked={todo.status === "incomplete" ? false : true}
                       // おそらくチェックボックスがレンダリングされる際にデフォルトでチェックを外した状態でレンダリングされるため、結果反転しているように見えるのだと思います。
                       // レンダリングされる際にtodoの状態を見て完了であればチェックがつくように追加してあげれば解決できそうです！！
                     ></input>
